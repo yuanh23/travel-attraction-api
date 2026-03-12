@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from .. import models, schemas
@@ -35,3 +35,15 @@ def trending_destinations(db: Session = Depends(get_db)):
     return db.query(models.Destination).order_by(
         models.Destination.annual_visitors_millions.desc()
     ).limit(10).all()
+
+@router.get("/trip/{trip_id}", response_model=List[schemas.DestinationResponse])
+def recommend_for_trip(trip_id: int, db: Session = Depends(get_db)):
+    trip = db.query(models.Trip).filter(models.Trip.id == trip_id).first()
+    if not trip:
+        raise HTTPException(status_code=404, detail="Trip not found")
+
+    daily_budget = trip.budget
+
+    return db.query(models.Destination).filter(
+        models.Destination.avg_cost_per_day <= daily_budget
+    ).order_by(models.Destination.avg_rating.desc()).limit(10).all()
