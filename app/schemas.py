@@ -23,3 +23,25 @@ class TripResponse(TripBase):
 
     class Config:
         orm_mode = True
+
+class ExpenseBase(BaseModel):
+    trip_id: int
+    category: str
+    amount: float
+    date: date
+    note: str = None
+
+
+class ExpenseCreate(ExpenseBase):
+    pass
+
+
+class ExpenseUpdate(ExpenseBase):
+    pass
+
+
+class ExpenseResponse(ExpenseBase):
+    id: int
+
+    class Config:
+        orm_mode = True
