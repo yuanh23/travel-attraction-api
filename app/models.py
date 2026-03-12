@@ -23,3 +23,15 @@ class Expense(Base):
     date = Column(Date, nullable=False)
     note = Column(String, nullable=True)
 
+class Attraction(Base):
+    __tablename__ = "attractions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    city = Column(String, nullable=False)
+    country = Column(String, nullable=True)
+    category = Column(String, nullable=True)
+    rating = Column(Float, nullable=True)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
+
