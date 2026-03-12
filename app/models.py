@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Date, Float, Integer, String
 from .database import Base
+from sqlalchemy import Column, Date, Float, ForeignKey, Integer, String
 
 
 class Trip(Base):
@@ -11,3 +12,13 @@ class Trip(Base):
     start_date = Column(Date, nullable=False)
     end_date = Column(Date, nullable=False)
     budget = Column(Float, nullable=False)
+
+class Expense(Base):
+    __tablename__ = "expenses"
+
+    id = Column(Integer, primary_key=True, index=True)
+    trip_id = Column(Integer, ForeignKey("trips.id"), nullable=False)
+    category = Column(String, nullable=False)
+    amount = Column(Float, nullable=False)
+    date = Column(Date, nullable=False)
+    note = Column(String, nullable=True)
