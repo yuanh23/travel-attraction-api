@@ -45,3 +45,21 @@ class ExpenseResponse(ExpenseBase):
 
     class Config:
         orm_mode = True
+
+class DestinationBase(BaseModel):
+    destination_name: str
+    country: str
+    continent: str = None
+    destination_type: str = None
+    avg_cost_per_day: float = None
+    best_season: str = None
+    avg_rating: float = None
+    annual_visitors_millions: float = None
+    unesco_site: str = None
+
+
+class DestinationResponse(DestinationBase):
+    id: int
+
+    class Config:
+        orm_mode = True
