@@ -23,15 +23,17 @@ class Expense(Base):
     date = Column(Date, nullable=False)
     note = Column(String, nullable=True)
 
-class Attraction(Base):
-    __tablename__ = "attractions"
+class Destination(Base):
+    __tablename__ = "destinations"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    city = Column(String, nullable=False)
-    country = Column(String, nullable=True)
-    category = Column(String, nullable=True)
-    rating = Column(Float, nullable=True)
-    latitude = Column(Float, nullable=True)
-    longitude = Column(Float, nullable=True)
+    destination_name = Column(String, nullable=False)
+    country = Column(String, nullable=False)
+    continent = Column(String, nullable=True)
+    destination_type = Column(String, nullable=True)
+    avg_cost_per_day = Column(Float, nullable=True)
+    best_season = Column(String, nullable=True)
+    avg_rating = Column(Float, nullable=True)
+    annual_visitors_millions = Column(Float, nullable=True)
+    unesco_site = Column(String, nullable=True)
 
