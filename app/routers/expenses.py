@@ -40,3 +40,31 @@ def get_expense(expense_id: int, db: Session = Depends(get_db)):
     if not expense:
         raise HTTPException(status_code=404, detail="Expense not found")
     return expense
+
+@router.put("/{expense_id}", response_model=schemas.ExpenseResponse)
+def update_expense(expense_id: int, updated_expense: schemas.ExpenseUpdate, db: Session = Depends(get_db)):
+    expense = db.query(models.Expense).filter(models.Expense.id == expense_id).first()
+    if not expense:
+        raise HTTPException(status_code=404, detail="Expense not found")
+
+    trip = db.query(models.Trip).filter(models.Trip.id == updated_expense.trip_id).first()
+    if not trip:
+        raise HTTPException(status_code=404, detail="Trip not found")
+
+    for key, value in updated_expense.dict().items():
+        setattr(expense, key, value)
+
+    db.commit()
+    db.refresh(expense)
+    return expense
+
+
+@router.delete("/{expense_id}")
+def delete_expense(expense_id: int, db: Session = Depends(get_db)):
+    expense = db.query(models.Expense).filter(models.Expense.id == expense_id).first()
+    if not expense:
+        raise HTTPException(status_code=404, detail="Expense not found")
+
+    db.delete(expense)
+    db.commit()
+    return {"message": "Expense deleted successfully"}
