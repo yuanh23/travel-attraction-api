@@ -22,3 +22,4 @@ class Expense(Base):
     amount = Column(Float, nullable=False)
     date = Column(Date, nullable=False)
     note = Column(String, nullable=True)
+
