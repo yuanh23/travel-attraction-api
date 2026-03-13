@@ -154,6 +154,14 @@ GET | `/recommendations/trip/{trip_id}` | Recommend destinations based on trip b
 3. The API calculates total spending and remaining budget.
 4. The user queries `/recommendations/trip/{trip_id}` to receive destination suggestions based on the trip budget.
 
+## API Documentation
+
+The full API documentation is provided in the file below:
+
+[API Documentation (PDF)](API_Documentation.pdf)
+
+The documentation was generated using FastAPI Swagger UI and includes all endpoints, parameters, and example responses.
+
 ## Future Improvements
 
 Possible improvements include:
